@@ -1,4 +1,7 @@
-export const App = () =>'Ashley'
+export const App = ({customer}) => (
+    <div>{customer.firstName}</div>
+)
+
 {
     customer: {
         firstName: 'Ashley'

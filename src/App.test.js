@@ -5,18 +5,32 @@ import { act } from "react-dom/test-utils";
 
 describe("Appointment", () => {
   it("renders the customer first name", () => {
-      const customer = { firstName: 'Ashley' };
+    const customer = { firstName: 'Ashley' };
+    const component = (
+      <App customer={customer} />
+    );
+    const container = document.createElement("div");
+    document.body.replaceChildren(container);
+    act(() => 
+      ReactDOM.createRoot(container).render(component)
+    )
+
+    expect(document.body.textContent).toContain(
+      'Ashley'
+    );
+  });
+  it ("renders another customer first name", () => {
+      const customer = { firstName: "Jordan" };
       const component = (
         <App customer={customer} />
-      );
-      const container = document.createElement("div");
-      document.body.appendChild(container);
-      act(() => 
-        ReactDOM.createRoot(container).render(component)
       )
-
+      const container = document.createElement("div");
+      document.body.replaceChildren(container);
+      act(() =>
+        ReactDOM.createRoot(container).render(component)
+      );
       expect(document.body.textContent).toContain(
-        'Ashley'
+        'Jordan'
       );
     });
 });
