@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import {App} from '../src/App'
+import { Appoinments, AppointmentsDayView } from '../src/Appointments'
 import { act } from "react-dom/test-utils"
 
 describe("Appointment", () => {
@@ -15,16 +15,35 @@ describe("Appointment", () => {
     )
     it("renders the customer first name", () => {
         const customer = { firstName: 'Ashley' };
-        render(<App customer={customer}/>)
+        render(<Appoinments customer={customer}/>)
         expect(document.body.textContent).toContain(
         'Ashley'
         );
     });
     it ("renders another customer first name", () => {
         const customer = { firstName: "Jordan" };
-        render (<App customer={customer}/>)
+        render (<Appoinments customer={customer}/>)
         expect(document.body.textContent).toContain(
             'Jordan'
         );
         });
 });
+describe ('AppointmentsDayView', () => {
+    let container
+    beforeEach(() => {
+        container = document.createElement("div");
+        document.body.replaceChildren(container);
+    });
+    const render = component =>
+    act(() => 
+    ReactDOM.createRoot(container).render(component)
+    )
+    it ('render a div with the right id', () => {
+        render (<AppointmentsDayView appoinments={[]}/>)
+        expect(
+            document.querySelector(
+                'div#appointmentsDayView'
+            )
+        ).not.toBeNull()
+    })
+})
