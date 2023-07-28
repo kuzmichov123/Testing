@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import {App} from './App'
-import { act } from "react-dom/test-utils";
+import React from "react"
+import ReactDOM from "react-dom/client"
+import {App} from '../src/App'
+import { act } from "react-dom/test-utils"
 
 describe("Appointment", () => {
   let container;
