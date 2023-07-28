@@ -1,3 +1,4 @@
+export const App = () =>'Ashley'
 {
     customer: {
         firstName: 'Ashley'
