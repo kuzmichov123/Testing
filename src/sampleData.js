@@ -13,3 +13,4 @@ export const sampleAppointments = [
     { startsAt: at(16), customer: { firstName: 'Gleb'} },
     { startsAt: at(17), customer: { firstName: 'Nigger'} },
 ]
+
