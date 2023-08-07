@@ -14,6 +14,8 @@ import {
 import { CustomerForm } from "../src/CustomerForm";
 
 describe("CustomerForm", () => {
+    const originalFetch = global.fetch
+    let fetchSpy
     const blankCustomer = {
         firstName: "",
         lastName: "",
@@ -22,7 +24,21 @@ describe("CustomerForm", () => {
 
     beforeEach(() => {
         initializeReactContainer();
+        fetchSpy =spy();
+        global.fetch = fetchSpy.fn;
     });
+
+    afterEach(() => {
+        global.fetch = originalFetch
+    })
+    const spy = () => {
+        let receivedArguments
+    return {
+        fn: (...args) => (receivedArguments = args),
+        receivedArguments: () => receivedArguments,
+        receivedArgument: n => receivedArguments[n]
+    }
+    }
 
     it("renders a form", () => {
         render(<CustomerForm original={blankCustomer} />);
@@ -82,17 +98,17 @@ describe("CustomerForm", () => {
 
     const itSubmitsExistingValue = (fieldName, value) =>
         it("saves existing value when submitted", () => {
-            expect.hasAssertions();
+            const submitSpy = spy()
             const customer = { [fieldName]: value };
             render(
                 <CustomerForm
                     original={customer}
-                    onSubmit={(props) =>
-                        expect(props[fieldName]).toEqual(value)
-                    }
+                    onSubmit={submitSpy.fn}
                 />
             );
             click(submitButton());
+
+            expect(submitSpy).toBeCalled(customer)
         });
 
     const itSubmitsNewValue = (fieldName, value) =>
@@ -164,4 +180,19 @@ describe("CustomerForm", () => {
 
         expect(event.defaultPrevented).toBe(true);
     });
+    it('sends request to POST /customers when submitting the form', () => {
+        render(
+            <CustomerForm
+                original={blankCustomer}
+                onSubmit={() => { }}
+            />
+        );
+        click(submitButton());
+        expect(fetchSpy).toBeCalledWith(
+            "/customers",
+            expect.objectContaining({
+                method: "POST",
+            })
+        )
+    })
 });
