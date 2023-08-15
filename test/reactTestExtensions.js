@@ -1,49 +1,35 @@
-import ReactDOM from "react-dom/client"
-import { act } from 'react-dom/test-utils'
+import ReactDOM from "react-dom/client";
+import { act } from "react-dom/test-utils";
 
-export let container
+export let container;
 
 export const initializeReactContainer = () => {
-    container = document.createElement('div')
-    document.body.replaceChildren(container)
-}
-XPathResult.pass
-export const render = (component) => 
+    container = document.createElement("div");
+    document.body.replaceChildren(container);
+};
+
+export const render = (component) =>
     act(() =>
-    ReactDOM.createRoot(container).render(component)
-    )
+        ReactDOM.createRoot(container).render(component)
+    );
 
 export const click = (element) =>
-    act(() => element.click())
+    act(() => element.click());
 
-export const element = (selector) => 
-    document.querySelector(selector)
-
-export const elements = (selector) =>
-    Array.from(document.querySelectorAll(selector))
-
-export const typesOf = (elements) =>
-    elements.map((element) => element.type)
-
-export const textOf = (elements) => 
-    elements.map((element) => element.textContent)
-
-export const form = (id) => element('form')
-
-export const field = (fieldName) => 
-    form().elements[fieldName]
+export const clickAndWait = async (element) =>
+    act(async () => click(element));
 
 export const submit = (formElement) => {
-    const event = new Event('submit', {
+    const event = new Event("submit", {
         bubbles: true,
         cancelable: true,
-    })
-    act(() => formElement.dispatchEvent(event))
-    return event
-}
+    });
+    act(() => formElement.dispatchEvent(event));
+    return event;
+};
 
-export const submitButton = () => 
-    element('input[type=submit]')
+export const submitAndWait = async (formElement) =>
+    act(async () => submit(formElement));
 
 const originalValueProperty = (reactElement) => {
     const prototype =
@@ -65,6 +51,26 @@ export const change = (target, value) => {
     });
     act(() => target.dispatchEvent(event));
 };
+
+export const element = (selector) =>
+    document.querySelector(selector);
+
+export const elements = (selector) =>
+    Array.from(document.querySelectorAll(selector));
+
+export const typesOf = (elements) =>
+    elements.map((element) => element.type);
+
+export const textOf = (elements) =>
+    elements.map((element) => element.textContent);
+
+export const form = (id) => element("form");
+
+export const field = (fieldName) =>
+    form().elements[fieldName];
+
+export const submitButton = () =>
+    element("input[type=submit]");
 
 export const labelFor = (formElement) =>
     element(`label[for=${formElement}]`);
