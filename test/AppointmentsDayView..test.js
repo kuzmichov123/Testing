@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { Appointment, AppointmentsDayView } from '../src/AppointmentsDayView.'
+import { Appointment, AppointmentsDayView } from '../src/AppointmentsDayView'
 import {
     initializeReactContainer,
     render,
