@@ -43,10 +43,7 @@ describe ('AppointmentsDayViewLoader', () => {
     it('initially passes empty array of appointments to AppointmentsDayView', async () => {
         await renderAndWait (<AppointmentsDayViewLoader />)
 
-        expect(AppointmentsDayView).toBeRenderedWithProps(
-            { appointments: []},
-            expect.anything()
-        )
+        expect(AppointmentsDayView).toBeFirstRenderedWithProps({ appointments: []})
     })
     it('fetches data when component is mounted', async () => {
         const from = todayAt(0)
