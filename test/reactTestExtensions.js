@@ -78,3 +78,10 @@ export const labelFor = (formElement) =>
 
 export const renderAndWait = (component) => 
     act(async () => reactRoot.render(component));
+
+export const propsOf = (mockComponent) => {
+    const lastCall = mockComponent.mock.calls[
+        mockComponent.mock.calls.length - 1
+    ]
+    return lastCall[0]
+}
